@@ -1338,9 +1338,9 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
 
     ![Office Yeoman Generator](./Images/YeomanVuejs.png)
 
-1. When then Yeoman generator completes, change directories to the open the project folder (ex: **cd excel-portfolio**) and open the folder in your favorite code editor (you can use the command "**code .**" for [Visual Studio Code](https://code.visualstudio.com/)).
+1. When then Yeoman generator completes, change directories to the open the project folder (for example, **cd excel-portfolio**) and open the folder in your favorite code editor (you can use the command "**code .**" for [Visual Studio Code](https://code.visualstudio.com/)).
 
-1. The Office Yeoman generator does not have a Vue.js template, so the instructions had you select the JQuery template which you will now convert to leverage Vue.js. Start by opening **package.json** in the project root directory and add **dependencies** on **vue** and **vue-class-component**.
+1. The Office Yeoman generator does not have a Vue.js template. In a previous step, you selected the JQuery template. We will now convert this template to leverage Vue.js. To get started, open **package.json** in the project root directory, and add the following **dependencies** for **vue** and **vue-class-component**. Add the **@microsoft/office-js** dependency if this is not present in  package.json.
 
     ````javascript
     "dependencies": {
@@ -1354,7 +1354,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     },
     ````
 
-1. Unfortunately, the JQuery template the generator uses puts everything into a single TypeScript file. To handle multiple TypeScript (and .vue) files, the project needs to be configured to use [webpack](https://webpack.github.io/). Add **devDependencies** for **webpack**, **vue-loader**, **vue-template-compiler**, and **ts-loader**.
+1. The generator creates a JQuery template that uses a single TypeScript file. To use multiple TypeScript and .vue files, configure the project to use [webpack](https://webpack.github.io/) by adding **devDependencies** for **webpack**, **vue-loader**, **vue-template-compiler**, and **ts-loader**.
 
     ````javascript
     "devDependencies": {
@@ -1373,7 +1373,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     ````
 
 1. Return to the terminal/command prompt and run the **npm install** command to pull in the additional dependencies and devDependencies.
-1. Next, you need to update the TypeScript config file (**tsconfig.json**) to work with webpack and support multiple modules and Vue.js. Update it as seen below.
+1. Next, you need to update the TypeScript config file (**tsconfig.json**) to work with webpack, support multiple modules, and Vue.js. Update your tsconfig.json as seen below.
 
     ````javascript
     {
@@ -1401,7 +1401,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     }
     ````
 
-1. Create a **webpack.config.js** file in the project root directory to configure webpack for this project. Updated it as seen below.
+1. Create a **webpack.config.js** file in the project root directory to configure webpack for this project, and add the following code.
 
     ````javascript
     var path = require('path')
@@ -1457,7 +1457,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     }
     ````
 
-1. Next, you need to update the project so that **.vue** files will be treated like TypeScript. Create a **sfc.d.ts** file at **src/sfc.d.ts** and update it as seen below.
+1. Next, you need to update the project so that **.vue** files will be treated like TypeScript. Create a **sfc.d.ts** file in the **src** folder, and add the following code.
 
     ````typescript
     declare module "*.vue" {
@@ -1466,7 +1466,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     }
     ````
 
-1. Next, go back to the **package.json** file in the project root directory and update the **scripts** section to leverage webpack as seen below.
+1. Next, go back to the **package.json** file in the project root directory and update the **scripts** section to use webpack, as shown below.
 
     ````javascript
     "scripts": {
@@ -1478,7 +1478,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     },
     ````
 
-    > **NOTE**: the updated script settings does not leverage a watch for file changed like the React and Angular projects in this module. Additional webpack configuration could be applied to archive this. Another option would be to start with the React template from the Office Yeoman generator and convert it to Vue.js.
+    > **NOTE**: the updated script settings does not leverage a watch for file changes like the React and Angular projects in this module. Additional webpack configuration could be applied to achieve this. Another option would be to start with the React template from the Office Yeoman generator and convert it to Vue.js.
 
 1. Next, open **src/index.html**, remove the **core.js** and **jquery.js** references and change the **app.js** reference to **bundle.js** (the consolidated script created by webpack). You can also replace the **header** and **main** content with **&lt;div id="app"&gt;{{welcome}}&lt;/div&gt;**.
 
@@ -1531,7 +1531,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     })();
     ````
 
-    >**OPTIONAL**: You should be able to run and side-load the add-in at this point. To do that, follow the steps outlined in [Side-load and Test the Office add-in](#SideLoadTestAddins). In the next section, you will add additional functionality to the add-in.
+    >**OPTIONAL**: You should be able to run and sideload the add-in at this point. To do that, follow the steps outlined in [Sideload and Test the Office add-in](#SideLoadTestAddins). In the next section, you will add additional functionality to the add-in.
 
 ### Develop the Office add-in
 
@@ -1600,7 +1600,6 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
         padding-top: 4px;
         padding-bottom: 4px;
     }
-
     .itemRow:hover {
         background-color: #eeeeee;
     }
@@ -1614,9 +1613,9 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
 
     ![Spinner](./README_assets/spinner.gif)
 
-1. Similar to React and Angular, Vue.js supports custom components. Although these can be built a number of ways,  this exercise will create **.vue** files that combine templates and TypeScript leveraging the **vue-class-component** package. You have already setup the TypeScript compiler and webpack to handle these tiles. Start by creating a **components** folder under **src** (ex: **src/components**).
+1. Similar to React and Angular, Vue.js supports custom components. Although these can be built a number of ways,  this exercise will create **.vue** files that combine templates and TypeScript leveraging the **vue-class-component** package. You have already setup the TypeScript compiler and webpack to handle these files. Start by creating a **components** folder under **src** (for example, **src/components**).
 
-1. Next, create a **src/components/waiting.vue** file and modify it as seen below.
+1. Next, create a **src/components/waiting.vue** file and modify it as shown below.
 
     ````html
     <template>
@@ -1637,7 +1636,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     </script>
     ````
 
-1. Next, create a new Vue component named **headerComponent** at **src/components/headerComponent.vue** with the code shown below. Notice this component uses a number of predefined Office UI Fabric style classes.
+1. Next, create a new Vue component named **headerComponent** by creating a new file at **src/components/headerComponent.vue**, and then inserting the code shown below. Notice this component uses a number of predefined Office UI Fabric style classes.
 
     ````html
     <template>
@@ -1679,7 +1678,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     </script>
     ````
 
-1. Create a new React component named **stock** at **src/components/stock.vue** with the code shown below. This component will display a stock with commands for refresh and delete. Notice how the refresh and delete commands emit to the parent.
+1. Create a new Vue component named **stock** at **src/components/stock.vue**, and then add the code shown below. This component will display a stock with refresh and delete commands. Notice how the refresh and delete commands emit to the parent.
 
     ````html
     <template>
@@ -1718,7 +1717,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     </script>
     ````
 
-1. Finally, open up **src/components/root.vue** and update it as seen below. Keep it open, as you will make a number of additional updates to this file before the end of this exercise.
+1. Finally, open **src/components/root.vue** and update it as shown below. Keep this file open because you will make several updates to it before the end of this exercise.
 
     ````html
     <template>
@@ -1801,7 +1800,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     </script>
     ````
 
-1. Open **src/app.ts** and update it as seen below. This imports all the Vue components you just created and renders the **root** component in the **#app** container.
+1. Open **src/app.ts** and update it as shown below. This imports all the Vue components you just created and renders the **root** component in the **#app** container.
 
     ````typescript
     import Vue  from 'vue';
@@ -1819,11 +1818,11 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     })();
     ````
 
-1. Although the app's functionality isn't complete, the visual markup is. You can see it by saving all your work and returning to Office Online. It should look similar to below. If you previously closed the Excel Online window or if your Office Online session has expired (the add-in doesn't seem to load), follow the [Side-load the Office add-in](#side-load-the-office-add-in) steps above.
+1. Although the app's functionality isn't complete, the visual markup is complete. To review your changes, save all files and then return to Office Online. Your add-in should look similar to the following screenshot. If you previously closed your browser or if your Office Online session expired (the add-in doesn't load), follow the steps in [Sideload the Office add-in](#side-load-the-office-add-in).
 
     ![Add-in with visual markup complete](./Images/AddinVisual.png)
 
-1. The **root.vue** file has a number of placeholder functions that you will complete to get the add-in functioning. Start by locading the **getQuote** function. This function calls a REST API to get real-time stock statistics on a specific stock symbol. Update it as seen below.
+1. The **root.vue** file has a number of placeholder functions that you'll update to complete the add-in. Start by locating the **getQuote** function. This function calls a REST API to get real-time stock statistics on a specific stock symbol. Update it as shown below.
 
     ````typescript
     getQuote(symbol:string) {
@@ -1839,7 +1838,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     },
     ````
 
-1. Next, create new **utils** folder under **src** and then create a file named **excelTableUtil.ts** in it (**src/utils/excelTableUtil.ts**). This TypeScript class will contain helper functions for working with Excel tables with office.js. Notice the **ExcelTableUtil** constructor accepts details about the Excel table, including the name, location, and header details.
+1. Next, create a new **utils** folder under **src**, and then create a file named **excelTableUtil.ts** in it (**src/utils/excelTableUtil.ts**). This TypeScript class will contain helper functions to work with Excel tables using office.js. Notice the **ExcelTableUtil** constructor accepts details about the Excel table, including the name, location, and header details.
 
     ````typescript
     /// <reference path="../../node_modules/@types/office-js/index.d.ts" />
@@ -1858,10 +1857,10 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     }
     ````
 
-1. Return to **src/components/root.vue** and add a import reference to the **ExcelTableUtil** class we just created and create a private property inside the data property of the component.
+1. Return to **src/components/root.vue** and add an import reference to the **ExcelTableUtil** class we just created. Next, create a private property inside the data property of the component.
 
     ````typescript
-    /* !!! template removed for readability !!! */
+    /* Note: The preceding template code was removed for readability. */
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import waiting from "./waiting.vue";
@@ -1892,13 +1891,13 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
                 )
             } 
         },
-        /* !!! lines removed for readability !!! */
+        /* Note: The code that follows was removed for readability. */
     ````
 
-1. Next, add functions to **src/utils/excelTableUtil.ts** for **createTable** and **ensureTable**. These functions will be used to get a handle to the Excel table (and create it if it doesn't exist).
+1. Next, add functions to **src/utils/excelTableUtil.ts** for **createTable** and **ensureTable**. These functions will be used to get a handle to the Excel table, or create one if a handle doesn't exist.
 
     ````typescript
-    // Create the StocksTable and defines the header row
+    // Create the Stock table and define the header row
     createTable = async () => {
         return new Promise(async (resolve, reject) => {
             await Excel.run(async (context) => {
@@ -1928,7 +1927,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
                 });
             }).catch(() => {
                 if (forceCreate) {
-                    // Unable to find table...create it
+                    // Table was not found, so we create it.
                     this.createTable().then(async (tableRef) => {
                         resolve(tableRef);
                     }, (createError) => {
@@ -1942,18 +1941,18 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     }
     ````
 
-1. Next, add the **addRow** function to **src/utils/excelTableUtil.cs**. Notice that it call the ensureTable function we just created to ensure the Excel table has been created.
+1. Next, add the **addRow** function to **src/utils/excelTableUtil.cs**. Notice that **addRow** calls the ensureTable function we just created to ensure the Excel table has been created.
 
     ````typescript
-    // Appends a row to the table
+    // Appends a row to the table.
     addRow = async (data) => {
         return new Promise(async (resolve, reject) => { 
             this.ensureTable(true).then(async (tableRef:Excel.Table) => {
                 await Excel.run(async (context) => {
                     var sheet = context.workbook.worksheets.getActiveWorksheet();
-                    // Add the new row
+                    // Add the new row.
                     tableRef.rows.add(null, [data]);
-                    // Autofit columns and rows if supported by API
+                    // Autofit columns and rows if supported by Excel.
                     if (Office.context.requirements.isSetSupported("ExcelApi", 1.2)) {
                         sheet.getUsedRange().format.autofitColumns();
                         sheet.getUsedRange().format.autofitRows();
@@ -1972,16 +1971,16 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     }
     ````
 
-1. Return to **src/components/root.vue** and update the **addSymbol** function to call **getSymbol** for stock stats and then call **addRow** on the **ExcelTableUtil**. Notice the row data contains formulas.
+1. Return to **src/components/root.vue** and update the **addSymbol** function to call **getQuote** for stock statistics, and then call **addRow** on **ExcelTableUtil**. Notice the row data contains formulas.
 
     ````typescript
-    // Adds symbol
+    // Adds symbol.
     addSymbol = async (event) => {
         if (event.key == 'Enter') {
             let element = this.refs.newSymbol as TextField; 
             let symbol = element.value.toUpperCase();
 
-            // Get quote and add to Excel table
+            // Get quote and add to Excel table.
             this.setState({ waiting: true });
             this.getQuote(symbol).then((res:any) => {
                 let data = [
@@ -2014,9 +2013,9 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     }
     ````
 
-    > **Optional**: this is a good time to test the "add symbol" function of your add-in
+    > **Optional**: This is a good time to test the addSymbol function of your add-in.
 
-1. Return to **/src/utils/excelTableUtil.ts** and add functions for **getColumnData** and **deleteRow**. getColumnData gets values for a column in the Excel table so a row can be identified for update or delete. deleteRow deletes a row in the Excel table based on it's index.
+1. Return to **/src/utils/excelTableUtil.ts** and add functions for **getColumnData** and **deleteRow**. getColumnData gets values in a column in the Excel table. These values are then used to find a row which is updated or deleted. deleteRow deletes a row in the Excel table using an index.
 
     ````typescript
     // Gets data for a specific named column
@@ -2027,7 +2026,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
                     resolve([]);
                 else {
                     await Excel.run(async (context) => {
-                        // Get column range by column name
+                        // Get column range of values by column name.
                         var colRange = tableRef.columns.getItem(column).getDataBodyRange().load("values");
                         // Sync to populate proxy objects with data from Excel
                         return context.sync().then(async () => {
@@ -2047,7 +2046,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
         });
     }
 
-    // Deletes a column based by row index
+    // Deletes a column using the row index.
     deleteRow = async (index:number) => {
         return new Promise(async (resolve, reject) => { 
             this.ensureTable(true).then(async (tableRef:Excel.Table) => {
@@ -2067,15 +2066,15 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     }
     ````
 
-1. Return to **src/components/root.vue** and update the **deleteSymbol** function to delete the specified symbol from the Excel table. Do this by first calling **getColumnData** (on **ExcelTableUtil**) to determine the row to delete and then **deleteRow** (also on **ExcelTableUtil**) to perform the delete.
+1. Return to **src/components/root.vue** and update the **deleteSymbol** function to delete the specified symbol in the Excel table.  Using **ExcelTableUtil**, first call **getColumnData** to determine the row to delete, and then call **deleteRow** to perform the delete.
 
     ````typescript
     deleteSymbol(index:number) {
-        // Delete from Excel table by index number
+        // Delete from the Excel table using the index number.
         let symbol = (<any>this).symbols[index];
         (<any>this).waiting = true;
         (<any>this).tableUtil.getColumnData("Symbol").then(async (columnData:string[]) => {
-            // make sure the symbol was found in the Excel table
+            // Make sure the symbol was found in the Excel table
             if (columnData.indexOf(symbol) != -1) {
                 (<any>this).tableUtil.deleteRow(columnData.indexOf(symbol)).then(async () => {
                     (<any>this).symbols.splice(index, 1);
@@ -2096,7 +2095,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     },
     ````
 
-    > **Optional**: this is a good time to test the "delete symbol" function of your add-in
+    > **Optional**: This is a good time to test the deleteSymbol function of your add-in.
 
 1. Make the final update to **src/utils/excelTableUtil.ts** by adding the **updateCell** function, which updates the cell at a specific address to a specified value.
 
@@ -2122,15 +2121,15 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     }
     ````
 
-1. Next, update the **refreshSymbol** function on **src/components/root.vue** to call **getQuote** for updated stock statistics and then update the last trade cell in the Excel table. Similar to deleteSymbol, this function will call **getColumnData** to determine the cell address before calling **updateCell**.
+1. Next, update the **refreshSymbol** function in **src/components/root.vue** to call **getQuote** for updated stock statistics, and then update the last trade cell in the Excel table. Similar to deleteSymbol, this function will call **getColumnData** to determine the cell address before calling **updateCell**.
 
     ````typescript
     refreshSymbol(index:number) {
-        // Refresh stock quote and update Excel table
+        // Refresh stock quote and update the Excel table.
         let symbol = (<any>this).symbols[index];
         (<any>this).waiting = true;
         (<any>this).tableUtil.getColumnData("Symbol").then(async (columnData:string[]) => {
-            // make sure the symbol was found in the Excel table
+            // Make sure the symbol was found in the Excel table.
             var rowIndex = columnData.indexOf(symbol);
             if (rowIndex != -1) {
                 (<any>this).getQuote(symbol).then((res:any) => {
@@ -2155,9 +2154,9 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     },
     ````
 
-    > **Optional**: this is a good time to test the "refresh symbol" function of your add-in
+    > **Optional**: This is a good time to test the refreshSymbol function of your add-in.
 
-1. Finally, update the **syncTable** function, which is called when the add-in is launched (in the constructor of app.tsx) to pull in any stock symbols that might already exist in the worksheet. It calls **getColumnData** to get this data.
+1. Finally, update the **syncTable** function to pull in any stock symbols that might already exist in the worksheet. **syncTable** is called in the constructor of app.tsx when the add-in is launched. syncTable calls **getColumnData** to get this data.
 
     ````typescript
     syncTable() {
@@ -2172,7 +2171,7 @@ In this exercise, you will develop an Office add-in using Vue.js and TypeScript.
     }
     ````
 
-The Excel Portfolio Add-in written with Vue.js and TypeScript is complete. You should follow the steps to [Side-load and Test the Office add-in](#SideLoadTestAddins).
+The Excel Portfolio add-in written with Vue.js and TypeScript is now complete. Follow the steps to [Side-load and Test the Office add-in](#SideLoadTestAddins).
 
 <a name="SideLoadTestAddins"></a>
 
